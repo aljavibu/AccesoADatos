@@ -79,4 +79,15 @@ public class GestionContenido extends DefaultHandler {
 
 		}
 	}
+	 public void endDocument() throws SAXException {
+		 try {
+			filtroEscritura.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	 }
+
 }
+	
+	
