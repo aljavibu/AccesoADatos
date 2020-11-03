@@ -42,39 +42,31 @@ public class Principal {
 		}
 
 	}
-	
-	
 
 	private static void modificandoArbolDom(Document arbol) {
-		Element departamento,empleado;
+		Element  empleado;
 		Element raiz = (Element) arbol.getFirstChild();
 		Node puesto;
-		//Lista Departamentos
-		NodeList listaDepartamentos = raiz.getElementsByTagName("departamento");
 		
-		//De la lista de departamentos obtenemos una lista de empleados
-		for (int i = 0; i < listaDepartamentos.getLength(); i++) {
-			departamento = (Element) listaDepartamentos.item(i);
-			NodeList listaEmpleados=departamento.getElementsByTagName("empleado");
-			
-			
-			//Y por cada empleado obtenemos su nodo puesto
-			for(int i1 = 0;i1< listaEmpleados.getLength();i1++) {
-				empleado=(Element)listaEmpleados.item(i1);
+			NodeList listaEmpleados = raiz.getElementsByTagName("empleado");
+
+			// Y por cada empleado obtenemos su nodo puesto
+			for (int i1 = 0; i1 < listaEmpleados.getLength(); i1++) {
+				empleado = (Element) listaEmpleados.item(i1);
 				try {
-					
-					//Obtenemos el nodo puesto del empleado
-					puesto= getNodo("puesto", empleado);
-					//Pasamos el nodo nombre,el empleado y arbol para construir el nuevo elemento apellido
-					
-					if(puesto.getTextContent().equals("Asociado")) {
+
+					// Obtenemos el nodo puesto del empleado
+					puesto = getNodo("puesto", empleado);
+
+					if (puesto.getTextContent().equals("Asociado")) {
 						int salario;
-						//Obtenemos el salario
-						salario=Integer.parseInt(empleado.getAttribute("salario"));
-						
-						empleado.setAttribute("salario",String.valueOf(salario*1.05));
-						
-						
+
+						// Obtenemos el salario
+						salario = Integer.parseInt(empleado.getAttribute("salario"));
+
+						// Lo subimos un 5%
+						empleado.setAttribute("salario", String.valueOf(salario * 1.05));
+
 					}
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
@@ -82,25 +74,20 @@ public class Principal {
 				}
 
 			}
-			
+
 		}
 
-	}
-
-	
-
 	private static Node getNodo(String etiqueta, Element ele) throws IOException {
-		
-		//Obtenemos la lista de hijos nombre
+
+		// Obtenemos la lista de hijos puesto
 		NodeList listaDeHijosDeEtiqueta = ele.getElementsByTagName(etiqueta);
 
 		if (listaDeHijosDeEtiqueta.getLength() == 0) {
 			throw new IOException("No existe el elemento " + etiqueta);
 
 		} else {
-			//Devolvemos solo el primero 
+			// Devolvemos solo el primero
 			return listaDeHijosDeEtiqueta.item(0);
 		}
 	}
 }
-

@@ -15,6 +15,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
+import org.w3c.dom.Text;
 
 public class Principal {
 
@@ -50,12 +51,8 @@ public class Principal {
 		Element raiz = (Element) arbol.getFirstChild();
 		Node nombre;
 		//Lista Departamentos
-		NodeList listaDepartamentos = raiz.getElementsByTagName("departamento");
-		
-		//De la lista de departamentos obtenemos una lista de empleados
-		for (int i = 0; i < listaDepartamentos.getLength(); i++) {
-			departamento = (Element) listaDepartamentos.item(i);
-			NodeList listaEmpleados=departamento.getElementsByTagName("empleado");
+	
+			NodeList listaEmpleados=raiz.getElementsByTagName("empleado");
 			
 			
 			//Y por cada empleado obtenemos su nodo nombre
@@ -76,7 +73,7 @@ public class Principal {
 			
 		}
 
-	}
+
 
 	private static void separarApellido(Node nombreNodo, Element empleado, Document arbol) {
 		// TODO Auto-generated method stub
@@ -101,11 +98,8 @@ public class Principal {
 		
 		
 		//Creamos el elemento apellido
-		var newElement=arbol.createElement("apellido");
-		//Creamos el texto
-		var  newText = arbol.createTextNode(apellido);
-		//Anadimos el texto al elemento
-		newElement.appendChild(newText);
+		Element newElement=arbol.createElement("apellido");
+		newElement.setTextContent(apellido);
 		
 		//Anadimos el elemento al empleado ,que es el padre
 		empleado.appendChild(newElement);
